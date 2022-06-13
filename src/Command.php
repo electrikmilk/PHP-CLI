@@ -59,11 +59,14 @@ class Command
 	}
 
 	/**
-	 * @return array
+	 * @return false
 	 */
-	public function options(): array
+	public function options()
 	{
-		return $this->options;
+		if (isset($this->options)) {
+			return $this->options;
+		}
+		return false;
 	}
 
 	/**

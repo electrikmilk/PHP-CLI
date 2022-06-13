@@ -56,13 +56,17 @@ if ($argc !== 0) {
 			if ($command->required()) {
 				$command->call();
 			} else {
-				output('USAGE:', BOLD, UNDERLINED);
-				'	$ ' . output($command->usage());
+				output('DESCRIPTION', GREEN, BOLD, UNDERLINED);
+				output($command->description());
+
+				output('USAGE', GREEN, BOLD, UNDERLINED);
+				output('$ ' . $command->usage());
+
 				if ($command->options()) {
-					echo "\n";
-					output("OPTIONS:", BOLD, UNDERLINED);
-					foreach ($command->options() as $option) {
-						output('	');
+					output("OPTIONS", GREEN, BOLD, UNDERLINED);
+					foreach ($command->options() as $flag => $description) {
+						$letter = substr($flag, 0, 1);
+						output(" -$letter --$flag	$description");
 					}
 				}
 			}
