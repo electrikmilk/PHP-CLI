@@ -1,2 +1,1 @@
-<?php
-include_once 'PHP-CLI.php';
+<?php include_once 'PHP-CLI.php';

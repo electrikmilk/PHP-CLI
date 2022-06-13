@@ -10,13 +10,13 @@ class Command
 
 	protected array $args = [];
 	protected array $require_args = [];
-	protected Console $console;
+	protected CLI $console;
 
 	public function __construct()
 	{
 		global $args;
 		$this->args = $args;
-		$this->console = new Console();
+		$this->console = new CLI();
 		self::$_instances[] = $this;
 	}
 
@@ -38,7 +38,7 @@ class Command
 	 */
 	public function description(): string
 	{
-		if(isset($this->description)) {
+		if (isset($this->description)) {
 			return $this->description;
 		}
 		return false;
@@ -49,7 +49,7 @@ class Command
 	 */
 	public function usage(): string
 	{
-		if(isset($this->usage)) {
+		if (isset($this->usage)) {
 			return $this->usage;
 		}
 		return false;
@@ -60,7 +60,7 @@ class Command
 	 */
 	public function required()
 	{
-		if(isset($this->require_args)) {
+		if (isset($this->require_args)) {
 			foreach ($this->require_args as $require_arg) {
 				if (!isset($this->args[$require_arg])) {
 					return false;

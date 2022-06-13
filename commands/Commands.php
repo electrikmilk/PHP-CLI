@@ -13,7 +13,7 @@ class Commands extends Command
 			->style(BOLD)
 			->echo();
 		foreach ($commands as $command) {
-			$this->console->output(CLI::style($command->name(), GREEN) . "	{$command->description()}")->echo();
+			$this->console->output(CLI::styles($command->name(), GREEN) . "	{$command->description()}")->echo();
 		}
 	}
 }

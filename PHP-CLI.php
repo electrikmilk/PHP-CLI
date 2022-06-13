@@ -19,7 +19,11 @@ if ($argc !== 0) {
 }
 --$argc;
 
-include_once 'src/Console.php';
+function output($line)
+{
+	echo "$line\n";
+}
+
 include_once 'src/CLI.php';
 include_once 'src/Command.php';
 
@@ -28,7 +32,7 @@ foreach ($commands as $command) {
 	if ($command === '..' || $command === '.') continue;
 	$name = pathinfo($command, PATHINFO_FILENAME);
 	include_once "commands/$name.php";
-	if($name === 'Commands') {
+	if ($name === 'Commands') {
 		$command_list = new Commands();
 		continue;
 	}
