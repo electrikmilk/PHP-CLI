@@ -19,9 +19,13 @@ if ($argc !== 0) {
 }
 --$argc;
 
-function output($line)
+function output($line, ...$styles)
 {
-	echo "$line\n";
+	if ($styles) {
+		echo CLI::styles($line, ...$styles) . "\n";
+	} else {
+		echo "$line\n";
+	}
 }
 
 include_once 'src/CLI.php';
@@ -46,11 +50,11 @@ if ($argc !== 0) {
 			if ($command->required()) {
 				$command->call();
 			} else {
-				output('usage: ' . $command->usage());
+				output(CLI::styles('usage: ', BOLD) . $command->usage());
 			}
 			die;
 		}
 	}
-	output("command not found: $command_name\n");
+	output("command not found: $command_name\n", RED);
 }
 $command_list->call();
