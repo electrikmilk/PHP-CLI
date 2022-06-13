@@ -7,15 +7,18 @@ class Command
 	protected string $name;
 	protected string $description;
 	protected string $usage;
+	protected array $options;
 
 	protected array $args = [];
+	protected array $flags = [];
 	protected array $require_args = [];
 	protected CLI $console;
 
 	public function __construct()
 	{
-		global $args;
+		global $args, $flags;
 		$this->args = $args;
+		$this->flags = $flags;
 		$this->console = new CLI();
 		self::$_instances[] = $this;
 	}
@@ -53,6 +56,14 @@ class Command
 			return $this->usage;
 		}
 		return false;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function options(): array
+	{
+		return $this->options;
 	}
 
 	/**

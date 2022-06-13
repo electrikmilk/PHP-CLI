@@ -6,7 +6,9 @@
  */
 
 $args = [];
+$flags = [];
 $command_name = null;
+
 if ($argc !== 0) {
 	if (isset($argv[1])) {
 		$command_name = $argv[1];
@@ -14,7 +16,11 @@ if ($argc !== 0) {
 	}
 	unset($argv[0]);
 	foreach ($argv as $arg) {
-		$args[] = $arg;
+		if (str_starts_with($arg, '-') || str_starts_with($arg, '--')) {
+			$flags[] = trim($arg, '-,--');
+		} else {
+			$args[] = $arg;
+		}
 	}
 }
 --$argc;
@@ -50,7 +56,15 @@ if ($argc !== 0) {
 			if ($command->required()) {
 				$command->call();
 			} else {
-				output(CLI::styles('usage: ', BOLD) . $command->usage());
+				output('USAGE:', BOLD, UNDERLINED);
+				'	$ ' . output($command->usage());
+				if ($command->options()) {
+					echo "\n";
+					output("OPTIONS:", BOLD, UNDERLINED);
+					foreach ($command->options() as $option) {
+						output('	');
+					}
+				}
 			}
 			die;
 		}

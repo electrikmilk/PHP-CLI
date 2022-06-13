@@ -111,6 +111,21 @@ class CLI
 		return self::reset() . "\033[" . implode(';', $styles) . "m$line" . self::reset();
 	}
 
+	public static function flag(string $flag)
+	{
+		global $flags;
+		$letter = substr($flag, 0, 1);
+		if (in_array($letter, $flags)) {
+			return true;
+		}
+		foreach ($flags as $f) {
+			if (substr($f, 0, 1) === $letter) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public static function reset(): string
 	{
 		return "\033[0m";
